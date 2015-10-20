@@ -7,15 +7,16 @@ import os
 # List of cities we want to include
 city_list = ["austin", "columbus", "denver", "miami", "minneapolis", "portland", "seattle", "vancouver", "montreal"]
 download_interval = 2     # in minutes
+USER_KEY = 'USER_KEY'
+save_path = "D:/Car2Go/" + city
 
 # Access vehicle location data for all cities, save contents in a city-specific directory
 def write_locations():
     for city in city_list:
-        baseurl = 'https://www.car2go.com/api/v2.1/vehicles?loc=' + city + '&oauth_consumer_key=TransitShare&format=json'
+        baseurl = 'https://www.car2go.com/api/v2.1/vehicles?loc=' + city + '&oauth_consumer_key=' + USER_KEY + '&format=json'
         page = urllib2.urlopen(baseurl)
         information = page.read()
         fname = time.strftime("%m_%d_%Y_%H_%M_%S")
-        save_path = "D:/Car2Go/" + city
         fname = os.path.join(save_path, time.strftime("%m_%d_%Y_%H_%M_%S"))
         with open(fname + '.json', 'w') as f:
             f.write(information)
